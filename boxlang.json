@@ -1,0 +1,148 @@
+/**
+ * BoxLang Configuration File
+ *
+ * Here are some of the available variables you can use in this file:
+ * ${boxlang-home} - The BoxLang home directory
+ * ${user-home} - The user's home directory
+ * ${user-dir} - The user's current directory
+ * ${java-temp} - The java temp directory
+ * ${env.variablename:defaultValue} - The value of a valid environment variable or the default value. Example: ${env.CFCONFIG_HOME:/etc/cfconfig}
+ */
+{
+	// Additional Extensions BoxLang will process as templates.  The default extensions such as bxm, bxs, cfm, cfs, etc. are always processed as templates
+	// This is used by the RunnableLoader
+	"validTemplateExtensions": [],
+	// This puts the entire runtime in debug mode
+	// Which will produce lots of debug output and metrics
+	// Also the debugging error template will be used if turned on
+	"debugMode": "${BOXLANG_DEBUG:false}",
+	//This is for adding a path (.bxm) to render a custom global error template for unhandled errors
+	//If empty, default boxlang error page is rendered
+	"globalErrorTemplate": "",
+	// This setting if enabled will remove all the class files from the class generation directory
+	// This is useful for debugging and testing, but not recommended for production
+	"clearClassFilesOnStartup": false,
+	// This enables the class locations cache for the runtime.  It's used when resolving class paths
+	// mostly using mappings, per request mappings, etc.
+	// We recommend you always enable this setting, unless debugging a very specific issue
+	"classResolverCache": true,
+	// This enables the runnable loader's cache on disk for compiled BoxLang classes
+	// This means that it will load a Boxlang class and never inspect the file again
+	// Turn this on for production, but off for development so you can see your changes
+	"trustedCache": false,
+	// Store the compiled class files on disk for reuse between restarts
+	// If disabled, the class files will be stored in memory only and lost on restart
+	"storeClassFilesOnDisk": true,
+	// This enforces argument type checking and return value type checking for UDFs, closures, and lambdas.
+	"enforceUDFTypeChecks": true,
+	// The default timezone for the runtime; defaults to the JVM timezone if empty
+	// Please use the IANA timezone database values
+	"timezone": "",
+	// The default locale for the runtime; defaults to the JVM locale if empty
+	// Please use the IETF BCP 47 language tag values
+	"locale": "",
+	// Enable whitespace compression in output.  Only in use by the web runtimes currently.
+	"whitespaceCompressionEnabled": true,
+	// By default BoxLang uses high-precision mathematics via BigDecimal operations
+	// You can turn this off here for all applications
+	"useHighPrecisionMath": true,
+	// Use Timespan syntax: "days, hours, minutes, seconds"
+	"applicationTimeout": "0,0,0,0",
+	// The request timeout for a request in seconds; 0 means no timeout
+	"requestTimeout": "0,0,0,0",
+	// The session timeout: 60 minutes
+	"sessionTimeout": "0,0,60,0",
+	// Where sessions will be stored by default.  This has to be a name of a registered cache
+	// or the keyword "memory" to indicate our auto-created cache.
+	// This will apply to ALL applications unless overridden in the Application.cfc
+	"sessionStorage": "memory",
+	// Whether session management is enabled globally. Default is false.
+	// This can be overridden per application in the Application.cfc/Application.bx
+	"sessionManagement": true,
+	// Whether session clustering is enabled. Default is false.
+	// When enabled, sessions can be shared across clustered instances.
+	"sessionCluster": false,
+	// The maximum number of completed threads to track for a single request. Old threads will be flushed out to prevent memory from filling.
+	// This only applies to the "thread" component bx:thread name="mythread" {} which tracks execution status and scopes for the remainder of the request that fired it.
+	// ONLY threads which have been completed will be eligible to be flushed.
+	// Note: when the limit is reached, the thread component and related BIFs will no longer throw exceptions on invalid thread names, they will silently ignore attempts to interrupt or join those threads
+	"maxTrackedCompletedThreads": 1000,
+	// A collection of BoxLang mappings, the key is the prefix and the value is the directory
+	// The key can also be a struct containing a "path" and "external" property
+	// A non-external mapping will not be used in the web runtimes to resolve incoming file paths
+	"mappings": {
+		"/app" :  {"path": "${user-dir}/app", "external": false },
+		"/public" : "${user-dir}/public",
+		"/coldbox" :  {"path": "${user-dir}/lib/coldbox", "external": false },
+		"/coldbox/system/exceptions" :  {"path": "${user-dir}/lib/coldbox/system/exceptions", "external": true },
+		"/modules" :  {"path": "${user-dir}/lib/modules", "external": true },
+		"/cborm" :  {"path": "${user-dir}/lib/modules/cborm", "external": false },
+		"/testbox" :  "${user-dir}/lib/testbox",
+		"/tests" : "${user-dir}/tests"
+	},
+	// A collection of BoxLang module directories, they must be absolute paths or expanded paths
+	"modulesDirectory": [
+		"${user-dir}/boxlang_modules",
+		"${boxlang-home}/modules",
+		"${user-dir}/runtime/modules"
+	],
+	// A collection of BoxLang custom component directories, they must be absolute paths
+	"customComponentsDirectory": [
+		"${boxlang-home}/global/components",
+		"${user-dir}/runtime/global/components"
+	],
+	// A collection of directories to lookup box classes in (.bx files), they must be absolute paths
+	"classPaths": [
+		"${boxlang-home}/global/classes",
+		"${user-dir}/runtime/global/classes"
+	],
+	// A collection of directories we will class load all Java *.jar files from
+	"javaLibraryPaths": [
+		"${boxlang-home}/lib",
+		"${user-dir}/runtime/lib",
+		"${user-dir}/lib/modules/cbsecurity-passkeys/lib"
+	],
+	// Logging Settings for the runtime
+	"logging": {
+		// The location of the log files the runtime will produce
+		"logsDirectory": "${user-dir}/runtime/logs",
+		// The maximum number of days to keep log files before rotation
+		// Default is 90 days or 3 months
+		// Set to 0 to never rotate
+		"maxLogDays": 90,
+		// The maximum file size for a single log file before rotation
+		// You can use the following suffixes: KB, MB, GB
+		// Default is 100MB
+		"maxFileSize": "100MB",
+		// The total cap size of all log files before rotation
+		// You can use the following suffixes: KB, MB, GB
+		// Default is 5GB
+		"totalCapSize": "5GB",
+		// The root logger level
+		// Valid values are in order of severity: ERROR, WARN, INFO, DEBUG, TRACE, OFF
+		// If the runtime is in Debug mode, this will be set to DEBUG
+		"rootLevel": "WARN",
+		// Default Encoder for file appenders.
+		// The available options are "text" and "json"
+		"defaultEncoder": "text",
+		// Activate the status printer on load to print out the logging configuration
+		// Turn on to debug LogBack and BoxLang logging configurations
+		"statusPrinterOnLoad": false
+	},
+	/**
+	 * The BoxLang module settings
+	 * The key is the module name and the value is a struct of settings for that specific module
+	 * The `enabled` property is a boolean that determines if the module should be enabled or not.  Default is true
+	 * The `settings` property is a struct of settings that are specific to the module and will be override the module settings
+	 */
+	"modules": {
+		// The Compat Module
+		// "compat": {
+		// 	"enabled": true,
+		// 	"settings": {
+		// 		"isLucee": true,
+		// 		"isAdobe": true
+		// 	}
+		// }
+	}
+}

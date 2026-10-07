@@ -1,0 +1,39 @@
+{
+    "name":"kairos-backoffice",
+    "version":"1.0.0",
+    "author":"You",
+    "location":"forgeboxStorage",
+    "language":"BoxLang",
+    "slug":"kairos-backoffice",
+    "createPackageDirectory":false,
+    "type":"mvc",
+    "keywords":[
+        "starter-template",
+        "coldbox"
+    ],
+    "homepage":"https://www.coldbox.org",
+    "documentation":"https://coldbox.ortusbooks.com",
+    "shortDescription":"This starter template will give you all the basics you need to get started with ColdBox.",
+    "contributors":[],
+    "ignore":[],
+    "installPathConventions":{
+        "modules":"lib/modules"
+    },
+    "devDependencies":{
+        "testbox":"be"
+    },
+    "dependencies":{
+        "coldbox":"^8.2.0",
+        "bx-mariadb":"1",
+        "bx-mysql":"1"
+    },
+    "installPaths":{
+        "coldbox":"lib/",
+        "testbox":"lib/",
+        "bx-mariadb":"runtime/modules/",
+        "bx-mysql":"runtime/modules/"
+    },
+    "scripts":{},
+    "testbox":{},
+    "description":"A ColdBox Application created with the ColdBox CLI"
+}
