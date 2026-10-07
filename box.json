@@ -28,10 +28,10 @@
         "bx-mysql":"1"
     },
     "installPaths":{
-        "coldbox":"lib/",
-        "testbox":"lib/",
-        "bx-mariadb":"runtime/modules/",
-        "bx-mysql":"runtime/modules/"
+        "coldbox":"lib/coldbox/coldbox/",
+        "testbox":"lib/testbox/testbox/",
+        "bx-mariadb":"runtime/modules/bx-mariadb/bx-mariadb/",
+        "bx-mysql":"runtime/modules/bx-mysql/bx-mysql/"
     },
     "scripts":{},
     "testbox":{},
