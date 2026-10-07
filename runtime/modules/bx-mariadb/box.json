@@ -1,0 +1,48 @@
+{
+    "name":"BoxLang MariaDB",
+    "version":"1.3.0+10",
+    "location":"https://downloads.ortussolutions.com/ortussolutions/boxlang-modules/bx-mariadb/1.3.0/bx-mariadb-1.3.0.zip",
+    "author":"Ortus Solutions",
+    "homepage":"https://github.com/ortus-boxlang/bx-mariadb",
+    "documentation":"https://github.com/ortus-boxlang/bx-mariadb",
+    "repository":{
+        "type":"git",
+        "URL":"https://github.com/ortus-boxlang/bx-mariadb"
+    },
+    "bugs":"https://github.com/ortus-boxlang/bx-mariadb/issues",
+    "slug":"bx-mariadb",
+    "shortDescription":"Module template for BoxLang modules",
+    "type":"boxlang-modules",
+    "boxlang":{
+        "moduleName":"mariadb"
+    },
+    "keywords":[
+        "boxlang"
+    ],
+    "private":false,
+    "license":[
+        {
+            "type":"Apache-2.0",
+            "URL":"https://www.apache.org/licenses/LICENSE-2.0"
+        }
+    ],
+    "devDependencies":{
+        "commandbox-boxlang":"*",
+        "commandbox-cfformat":"*",
+        "commandbox-docbox":"*",
+        "testbox":"*"
+    },
+    "ignore":[
+        "**/.*",
+        "settings.gradle",
+        "gradlew.bat",
+        "gradlew",
+        "build.gradle",
+        "/src/**",
+        "gradle/**"
+    ],
+    "scripts":{
+        "setupTemplate":"task run taskFile=src/build/SetupTemplate.cfc",
+        "onRelease":"publish"
+    }
+}
